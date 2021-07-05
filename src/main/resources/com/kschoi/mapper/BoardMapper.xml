@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kschoi.mapper.BoardMapper">
+
+	<select id="getList" resultType="com.kschoi.domain.BoardVO">
+		<![CDATA[
+			select * from tbl_member where board_number > 0
+		]]>
+	</select>
+	
+	<select id="read" resultType="com.kschoi.domain.BoardVO">
+		<![CDATA[
+			select * from tbl_board where board_number = #{board_number}
+		]]>
+	</select>
+	
+	
+
+
+	<insert id="insert">
+
+		INSERT
+		    INTO tbl_board(board_number, title, content, writer) VALUES
+		    (seq_member.nextval, #{title}, #{content}, #{writer}) 
+
+	</insert>
+	
+	<insert id="insertSelectKey">
+		<selectKey keyProperty="board_number" order="BEFORE" resultType="long">
+			select seq_board.nextval from dual
+		</selectKey>
+
+		
+		INSERT
+		    INTO tbl_board(board_number, title, content, writer) VALUES
+		    (#{board_number}, #{title}, #{content}, #{writer}) 
+	</insert>
+	
+	<update id="update">
+		update tbl_board set title = #{title}, content = #{content}, updatedate = sysdate where board_number = #{board_number}
+	</update>
+	
+	
+	<delete id="delete">
+		delete from tbl_board where board_number = #{board_number}
+	</delete>
+
+</mapper>

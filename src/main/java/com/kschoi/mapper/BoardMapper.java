@@ -16,5 +16,5 @@ public interface BoardMapper {
 	
 	public int delete(Long board_number);
 	
-	public void update(Long board_number);
+	public int update(BoardVO vo);
 }
